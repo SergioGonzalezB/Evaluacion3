@@ -1,0 +1,1 @@
+npm install --save body-parser express express-handlebars method-override mongoose nodemon @handlebars/allow-prototype-access

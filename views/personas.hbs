@@ -1,0 +1,28 @@
+<div class="table-responsive-sm">
+    <table class="table w-auto table-striped">
+
+        <thead>
+
+            <tr>
+                <th class="th-sm">Apellido Paterno</th>
+                <th class="th-sm">Apellido Materno</th>
+                <th class="th-sm">Nombre(s)</th>
+                <th class="th-sm">Fecha de Nacimiento</th>
+                <th class="th-sm">Sexo</th>
+                <th class="th-sm">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#personas}}
+            <tr>
+                <td>{{ApellidoPaterno}}</td>
+                <td>{{ApellidoMaterno}}</td>
+                <td>{{Nombre}}</td>
+                <td>{{FechaNacimiento}}</td>
+                <td>{{Sexo}}</td>
+                <td>{{Estado}}</td>
+            </tr>
+            {{/personas}}
+        </tbody>
+    </table>
+</div>
