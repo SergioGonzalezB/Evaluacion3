@@ -1,1 +1,7 @@
 npm install --save body-parser express express-handlebars method-override mongoose nodemon @handlebars/allow-prototype-access
+
+git init
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/SergioGonzalezB/Evaluacion3.git
+git push -u origin master
