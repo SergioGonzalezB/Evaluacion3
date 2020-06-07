@@ -1,7 +1,7 @@
 // Declaracion de variables y exportacion de los metodos que utiliza routerx`
 var express = require("express");
 var router = express.Router();
-const config = require("./config");
+const config = require("../config");
 
 //Exportacion de metodos utilizados en routes.js para guardar gets y posts
 module.exports = router;

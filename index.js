@@ -4,7 +4,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const hbs = require("express-handlebars");
-const Product = require("./models/product"); //cargar modulo del modelo
+const Persona = require("./models/Persona"); //cargar modulo del modelo
+const config = require("./config");
 const app = express();
 const method0verride = require("method-override"); //apirest
 
