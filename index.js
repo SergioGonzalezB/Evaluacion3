@@ -4,7 +4,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const hbs = require("express-handlebars");
-const Persona = require("./models/Persona"); //cargar modulo del modelo
 const config = require("./config");
 const app = express();
 const method0verride = require("method-override"); //apirest
@@ -24,10 +23,12 @@ app.engine(
 );
 app.set("view engine", ".hbs");
 
-app.use("/static", express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(method0verride("_method"));
+
+//Acceso de archivos en carpeta public
+app.use("/static", express.static("public"));
 
 // Retorna una funcion que existe en routes.js como exports
 var router = require("./app/routes");

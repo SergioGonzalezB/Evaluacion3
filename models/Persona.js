@@ -7,7 +7,7 @@ const CurpSchema = Schema({
   ApellidoPaterno: String,
   ApellidoMaterno: String,
   Nombre: String,
-  FechaNacimiento: String,
+  FechaNacimiento: [String],
   Sexo: { type: String, enum: ["H", "M"] },
   Estado: {
     type: String,
@@ -47,6 +47,7 @@ const CurpSchema = Schema({
       "NE",
     ],
   },
+  Curp: String,
 });
 
 module.exports = mongoose.model("Persona", CurpSchema);
