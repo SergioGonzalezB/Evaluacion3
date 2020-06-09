@@ -26,6 +26,7 @@
                 <th class="th-sm">Sexo</th>
                 <th class="th-sm">Estado</th>
                 <th class="th-sm">CURP</th>
+                <th class="th-sm">Opcion</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,11 @@
                 <td>{{Sexo}}</td>
                 <td>{{Estado}}</td>
                 <td>{{Curp}}</td>
+                <td>
+                    <form action="/api/persona/{{_id}}" method="GET">
+                        <button class="btn btn-primary" type="submit">Borrar</button>
+                    </form>
+                </td>
             </tr>
             {{/personas}}
         </tbody>

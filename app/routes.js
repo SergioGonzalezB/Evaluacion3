@@ -90,7 +90,7 @@ router.post("/api/persona/personaCurp", (req, res) => {
     if (!personas)
       return res.status(404).send({ message: "El registro no existe" });
 
-    res.render("personas", { personas });
+    res.render("persona", { personas });
   });
 });
 
@@ -98,7 +98,7 @@ router.post("/api/persona/personaCurp", (req, res) => {
 router.get("/api/persona/:personaCurp", (req, res) => {
   // Incluye la busqueda para definir el registro indicado
   let personaCurp = req.params.personaCurp;
-  Persona.find(personaCurp, (err, personas) => {
+  Persona.findById(personaCurp, (err, personas) => {
     if (err)
       return res
         .status(500)
