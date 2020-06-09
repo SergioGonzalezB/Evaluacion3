@@ -61,23 +61,9 @@ router.post("/api/registro", (req, res) => {
   persona.Estado = estado;
   persona.Curp = calculado;
 
-  Persona.find({ Curp: calculado }, (err, Personas) => {
-    if (personas) {
-      Persona.findOneAndUpdate({ Curp: calculado }, (err, persona) => {
-        if (err) {
-          return res.status(500).send({ message: `Error de guardado: ${err}` });
-        }
-        console.log("Se encontro un registro existente y se actualizo");
-      });
-    } else {
-      persona.save((err, personaStored) => {
-        if (err) {
-          res.status(500).send({ message: "Error al guardar en BD:" + err });
-        }
-        console.log("Nuevo registro guardado")
-        res.render("gracias", { calculado });
-      });
-    }
+  persona.save((err, personaStored) => {
+    if (err) res.status(500).send({ message: "Error al guardar en BD:" + err });
+    res.render("gracias", { calculado });
   });
 });
 
@@ -90,7 +76,7 @@ router.get("/api/personas", (req, res) => {
         .send({ message: `Error al realizar la peticion:${err}` });
     }
     if (!personas) {
-      return res.status(404).send({ message: "No existen productos" });
+      return res.status(404).send({ message: "No existen registros" });
     }
     res.render("personas", { personas });
   });
