@@ -18,7 +18,7 @@ app.engine(
   hbs({
     defaultLayout: "index",
     extname: ".hbs",
-    handlebars: allowInsecurePrototypeAccess(Handlebars), //esto tambien lo agregue.
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
   })
 );
 app.set("view engine", ".hbs");

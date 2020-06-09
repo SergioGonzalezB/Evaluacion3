@@ -17,6 +17,9 @@ router.get("/", (req, res) => {
 router.get("/api/registro", (req, res) => {
   res.render("registro");
 });
+router.get("/api/gracias", (req, res) => {
+  res.render("gracias");
+});
 
 //Insertar nuevo registro de persona
 router.post("/api/registro", (req, res) => {
@@ -58,30 +61,46 @@ router.post("/api/registro", (req, res) => {
   persona.Estado = estado;
   persona.Curp = calculado;
 
-  persona.save((err, personaStored) => {
-    if (err) res.status(500).send({ message: "Error al guardar en BD:" + err });
-    res.redirect("/api/personas");
+  Persona.find({ Curp: calculado }, (err, Personas) => {
+    if (personas) {
+      Persona.findOneAndUpdate({ Curp: calculado }, (err, persona) => {
+        if (err) {
+          return res.status(500).send({ message: `Error de guardado: ${err}` });
+        }
+        console.log("Se encontro un registro existente y se actualizo");
+      });
+    } else {
+      persona.save((err, personaStored) => {
+        if (err) {
+          res.status(500).send({ message: "Error al guardar en BD:" + err });
+        }
+        console.log("Nuevo registro guardado")
+        res.render("gracias", { calculado });
+      });
+    }
   });
 });
 
 //Get para mostrar los registros de personas
 router.get("/api/personas", (req, res) => {
   Persona.find({}, (err, personas) => {
-    if (err)
+    if (err) {
       return res
         .status(500)
-        .send({ message: "Error al realizar la peticion:" + err });
-    if (!personas)
+        .send({ message: `Error al realizar la peticion:${err}` });
+    }
+    if (!personas) {
       return res.status(404).send({ message: "No existen productos" });
+    }
     res.render("personas", { personas });
   });
 });
 
 //Busqueda por CURP
-router.post("/api/persona/personaCurp", (req, res) => {
+router.post("/api/personas/personaCurp", (req, res) => {
   var buscaCURP = req.body.curpbusca;
 
-  Persona.find({ CURP: buscaCURP }, (err, personas) => {
+  Persona.find({ Curp: buscaCURP }, (err, personas) => {
     if (err)
       return res
         .status(500)
@@ -90,7 +109,7 @@ router.post("/api/persona/personaCurp", (req, res) => {
     if (!personas)
       return res.status(404).send({ message: "El registro no existe" });
 
-    res.render("persona", { personas });
+    res.render("personas", { personas });
   });
 });
 
@@ -98,21 +117,23 @@ router.post("/api/persona/personaCurp", (req, res) => {
 router.get("/api/persona/:personaCurp", (req, res) => {
   // Incluye la busqueda para definir el registro indicado
   let personaCurp = req.params.personaCurp;
-  Persona.findById(personaCurp, (err, personas) => {
-    if (err)
+  Persona.findById(personaCurp, (err, persona) => {
+    if (err) {
       return res
         .status(500)
         .send({ message: "Error al realizar la peticion: " + err });
-    if (!personas)
+    }
+    if (!persona) {
       return res.status(404).send({ message: "El producto no existe" });
-    res.render("persona", { personas });
+    }
+    res.render("persona", { persona });
   });
 });
 
 //Metodo para borrar un registro
 router.delete("/api/persona/:personaCurp", (req, res) => {
   let personaCurp = req.params.personaCurp;
-  Persona.find(personaCurp, (err, product) => {
+  Persona.findById(personaCurp, (err, persona) => {
     persona.remove((err) => {
       if (err)
         res
